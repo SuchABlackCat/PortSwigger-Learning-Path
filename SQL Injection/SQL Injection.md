@@ -115,3 +115,51 @@ WHERE TrackingId = '<b>xyz' AND '1'='1</b>'</pre>
 </ul>
 <p>Lặp lại bước trên cho đến khi ta tìm được toàn bộ password.</p>
 
+<h2>4. Error-based SQLi</h2>
+<p>Là kỹ thuật khai thác thông qua lỗi SQL trả về.</p>
+<h3>4.1. Các kiểu exploit</h3>
+<p>Trong Error-based SQLi, có 2 kiểu khai thác chính:</p>
+<p><strong>Trigger Conditional Errors</strong></p>
+<p>Ta tạo ra lỗi chỉ khi một điều kiện SQL đúng.</p>
+<ul>
+  <li>Nếu server trả về lỗi → điều kiện TRUE</li>
+  <li>Nếu không có lỗi → điều kiện FALSE</li>
+</ul>
+<p>Ví dụ:</p>
+<pre>xyz' AND (SELECT CASE WHEN (1=2) THEN 1/0 ELSE 'a' END)='a</pre>
+<p>→ 1=2 → chạy ELSE → không lỗi</p>
+<pre>xyz' AND (SELECT CASE WHEN (1=1) THEN 1/0 ELSE 'a' END)='a</pre>
+<p>→ 1=1 → chạy THEN → 1/0 → lỗi SQL</p>
+<p>Nếu lỗi làm thay đổi HTTP response => bạn đã có blind-error channel.</p>
+<p><strong>Trigger lỗi để in thẳng dữ liệu ra ngoài</strong></p>
+<p>Một số DB (đặc biệt MySQL) có thể trả text data vào thông báo lỗi.<br>Điều này biến “blind SQLi” thành “error-based visible SQLi”.</p>
+<h3>4.2. Khi nào dùng Conditional Error?</h3>
+<p>Khi ứng dụng không thay đổi hành vi dù query trả về có/không có dữ liệu.</p>
+<p>=> Blind SQLi kiểu boolean-based không hoạt động. Nhưng các lỗi SQL vẫn có thể tạo khác biệt → tấn công được.</p>
+<h3>4.3. Cách dùng để brute-force password</h3>
+<p>Ta đặt điều kiện trong CASE sao cho:</p>
+<ul>
+  <li>Đúng → tạo lỗi</li>
+  <li>Sai → không lỗi</li>
+</ul>
+<p>Ví dụ kiểm tra ký tự đầu của mật khẩu admin:</p>
+<pre>xyz' AND (
+   SELECT CASE
+      WHEN (Username='Administrator' AND SUBSTRING(Password,1,1) > 'm')
+      THEN 1/0
+      ELSE 'a'
+   END FROM Users
+)='a</pre>
+<ul>
+  <li>Nếu ký tự đầu > 'm' → lỗi → TRUE</li>
+  <li>Nếu không → không lỗi → FALSE</li>
+</ul>
+<p>Lặp lại 26 chữ + 10 số → suy ra toàn bộ password.</p>
+
+
+
+
+
+
+
+
