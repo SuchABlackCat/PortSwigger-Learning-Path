@@ -48,7 +48,3 @@ THEN pg_sleep(10) ELSE pg_sleep(0) END FROM users--</pre></li>
   <li>Chạy Intruder ở single thread: Vào Resource Pool → Maximum concurrent 1</li>
   <li>Start Attack</li>
 </ul>
-
-
-
-a2y03c1d43apla
