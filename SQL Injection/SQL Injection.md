@@ -157,9 +157,25 @@ WHERE TrackingId = '<b>xyz' AND '1'='1</b>'</pre>
 <p>Lặp lại 26 chữ + 10 số → suy ra toàn bộ password.</p>
 
 
-
-
-
-
+<h2>4.4. Verbose SQL error</h2>
+<h3>Verbose Error là gì?</h3>
+<p>Ứng dụng đôi khi trả về lỗi SQL đầy đủ, bao gồm cả câu truy vấn mà ứng dụng đang chạy.</p>
+<p>Ví dụ:</p>
+<p><i>Unterminated string literal started at position 52 in SQL</i> <code>SELECT * FROM tracking WHERE id=''''</code></p>
+<p>→ Hacker nhìn được nguyên câu SQL thật, biết mình đang tiêm vào chuỗi '...', hạn chế được lỗi syntax khi viết payload.</p> 
+<h3>Blind SQLi → Visible SQLi</h3>
+<p>Nếu lỗi chứa một phần của dữ liệu thật, hacker có thể đọc dữ liệu qua lỗi.</p>
+<p>Ví dụ:</p><p>Nếu attacker gửi 1 payload:</p>
+<pre>CAST((SELECT example_column FROM example_table) AS int)</pre>
+<p>Nếu example_column là chuỗi "Example data" → CAST sang int sẽ thất bại → lỗi:</p>
+<p><code>ERROR: invalid input syntax for type integer: "Example data"</code></p>
+<p>→ Chuỗi "Example data" chính là dữ liệu thật hacker muốn xem.</p>
+<h3>CAST()</h3>
+<p>Hacker có thể  tạo truy vấn chuyển kiểu sai để ép DB ném lỗi, và lỗi đó sẽ chứa dữ liệu.</p>
+<p>Ví dụ:</p>
+<pre>CAST((SELECT secret FROM users WHERE user='admin') AS int)</pre>
+<p>Nếu secret = 'abc123' → DB sẽ trả:</p>
+<p><code>ERROR: invalid input syntax for type integer: "abc123"</code></p>
+<p>→ Hacker đã lấy được password chỉ bằng lỗi.</p>
 
 
