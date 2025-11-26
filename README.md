@@ -3,7 +3,7 @@
 <ol>
   <li>Server-side vulnerabilities</li>
   <li>Path traversal</li>
-  <li>SQLi ✔</li>
+  <li>SQLi ✔ (lab 15/18)</li>
   <li>CSRF</li>
   <li>File upload</li>
   <li>Auth</li>
