@@ -31,6 +31,14 @@ Ta sẽ lợi dụng điều này để upload web shell PHP và đọc nội du
   <li>Gửi sang <b>Repeater</b>.</li> <li>Trong phần file, sửa: <pre>Content-Type: image/jpeg</pre> thay vì loại MIME thật của file PHP. </li>
   <li>Gửi request → Upload thành công.</li> 
 </ol> 
+<p><img width="1030" height="571" alt="image" src="https://github.com/user-attachments/assets/baeda597-aa6d-4c5d-a4f0-893bdab09ad6" />
+</p>
 
 <h2>6. Gọi web shell để lấy secret</h2>
-<ol> <li>Mở tab Repeater chứa request GET ban đầu.</li> <li>Đổi đường dẫn thành:<br> <code>GET /files/avatars/exploit.php HTTP/1.1</code> </li> <li>Gửi request → Server thực thi PHP.</li> <li>Kết quả trả về chính là nội dung của:<br> <code>/home/carlos/secret</code></li> </ol>
+<ol>
+  <li>Sau khi upload thành công, quay lại My Account</li>
+  <li>Right-click, mở avatar trong tab mới</li>
+  <li>Copy secret và submit là xong.</li>
+</ol>
+<p><img width="840" height="95" alt="image" src="https://github.com/user-attachments/assets/32b7bf90-9243-4fcf-89bd-d594a8ffc7cc" />
+</p>
