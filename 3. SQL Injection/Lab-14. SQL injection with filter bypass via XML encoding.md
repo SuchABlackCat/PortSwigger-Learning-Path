@@ -1,4 +1,5 @@
 <h1>SQL injection with filter bypass via XML encoding</h1>
+<hr>
 <h2>1. Quan sát request XML</h2>
 <p>Chọn <code>View Detail</code> một mặt hàng bất kì, ấn vào <code>Check Restock</code> để bắt request.</p>
 <p><img width="1027" height="538" alt="image" src="https://github.com/user-attachments/assets/4488297a-f3ed-489c-b4a9-4032e1c7a8b9" />
