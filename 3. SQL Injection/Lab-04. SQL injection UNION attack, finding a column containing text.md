@@ -1,7 +1,7 @@
 <h1>SQL injection UNION attack, finding a column containing text</h1>
 <p>Mục tiêu: Inject 1 câu query với giá trị cho sẵn (<code>9zDgaw</code>)</p>
 
-<h2>Cách làm</h2>
+<hr>
 <p>Mở lab trong BurpSuite browser.</p>
 <p>Chọn và bắt request <code>category=Gifts</code>.</p>
 <p>Chuyển request sang Repeater để tiện sửa và gửi nhiều.</p>
