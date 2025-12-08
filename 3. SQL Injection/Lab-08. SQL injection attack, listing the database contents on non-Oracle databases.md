@@ -1,7 +1,7 @@
 <h1>SQL injection attack, listing the database contents on non-Oracle databases</h1>
 <p>Mục tiêu: Log in as admin</p>
 
-<h2>Cách làm</h2>
+<hr>
 <p>Mở lab trong BurpSuite browser.</p>
 <p>Chọn và bắt request <code>category=Gifts</code>.</p>
 <p>Chuyển request sang Repeater để tiện sửa và gửi nhiều.</p>
