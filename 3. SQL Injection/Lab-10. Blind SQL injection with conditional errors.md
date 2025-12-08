@@ -1,5 +1,5 @@
 <h1>Blind SQL injection with conditional errors</h1>
-
+<hr>
 <h2>1. Chặn request và tìm TrackingId</h2>
 
 <h2>2. Xác nhận SQL syntax error (không phải lỗi khác)</h2>
