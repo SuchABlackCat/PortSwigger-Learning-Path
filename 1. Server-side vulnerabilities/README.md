@@ -1,0 +1,3 @@
+Lab 14: SQL injection vulnerability in WHERE clause allowing retrieval of hidden data: <a href='https://github.com/SuchABlackCat/PortSwigger-Learning-Path/blob/ff3113d4120e506b1071fe2c5f058d5a92d86451/3.%20SQL%20Injection/Lab-01%3A%20SQL%20injection%20vulnerability%20in%20WHERE%20clause%20allowing%20retrieval%20of%20hidden%20data.md'>Link</a>
+
+Lab 15: SQL injection vulnerability allowing login bypass: <a href='https://github.com/SuchABlackCat/PortSwigger-Learning-Path/blob/8a7e9912b931f76fce117eef78edc775e78727b6/3.%20SQL%20Injection/Lab-02%3A%20SQL%20injection%20vulnerability%20allowing%20login%20bypass.md'>Link</a>
