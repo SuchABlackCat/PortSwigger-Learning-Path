@@ -1,5 +1,5 @@
 <h1>Blind SQL injection with conditional responses</h1>
-
+<hr>
 <p>Mở lab trong BurpSuite browser.</p>
 <p>Tìm request có <code>Cookie: TrackingId=...</code></p>
 <p>
