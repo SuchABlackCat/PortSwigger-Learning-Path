@@ -1,17 +1,22 @@
-<h1>Username Enumeration via Different Responses</h1>
+# Username Enumeration via Different Responses
 
-<p>Bài lab này giúp bạn hiểu cách phân biệt username hợp lệ bằng cách quan sát sự khác nhau trong phản hồi của server.</p>
+**Level**: Apprentice
 
-<h2>1. Chuẩn bị</h2>
-<p>Mở lab trong <strong>Burp Browser</strong>.</p>
-<p>Copy danh sách username và password vào hai file riêng:</p>
-<ul>
-  <li><code>username.txt</code></li>
-  <li><code>password.txt</code></li>
-</ul>
-<p>Hai file này sẽ được dùng để brute-force.</p>
+**Mục đích**: Hiểu cách phân biệt username hợp lệ bằng cách quan sát sự khác nhau trong response.</p>
+<hr>
 
-<h2>2. Bắt request đăng nhập</h2>
+## 1. Chuẩn bị
+
+Mở lab trong **Burp Browser**.
+
+Copy danh sách username và password vào hai file riêng:
+
+- `username.txt`
+- `password.txt`
+
+Hai file này sẽ được dùng để brute-force.
+
+## 2. Bắt request đăng nhập
 <p>Nhấn vào <strong>My Account</strong> để mở trang đăng nhập.</p>
 <p>Nhập bất kỳ thông tin nào và bắt request <strong>POST /login</strong> trong Burp Suite.</p>
 
