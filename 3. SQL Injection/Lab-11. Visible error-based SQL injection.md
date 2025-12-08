@@ -1,4 +1,5 @@
 <h1>Visible error-based SQL injection</h1>
+<hr>
 <h2>1. Chặn request và tìm TrackingId</h2>
 <h2>2. Xác nhận verbose error</h2>
 
