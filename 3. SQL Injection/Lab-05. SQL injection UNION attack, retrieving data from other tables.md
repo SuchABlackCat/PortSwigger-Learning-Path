@@ -1,7 +1,7 @@
 <h1>SQL injection UNION attack, retrieving data from other tables</h1>
 <p>Mục tiêu: Log in as admin</p>
+<hr>
 
-<h2>Cách làm</h2>
 <p>Mở lab trong BurpSuite browser.</p>
 <p>Chọn và bắt request <code>category=Pets</code>.</p>
 <p>Chuyển request sang Repeater để tiện sửa và gửi nhiều.</p>
